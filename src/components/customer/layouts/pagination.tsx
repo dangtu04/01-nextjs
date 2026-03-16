@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import type { PaginationProps } from "antd";
 import { Pagination } from "antd";
 import { useRouter, useSearchParams } from "next/navigation";
 import "./pagination.scss";
@@ -13,10 +12,11 @@ interface IProps {
     pages: number;
     totals: number;
   };
+  nameItem?: string;
 }
 
 const PaginationLayout = (props: IProps) => {
-  const { meta } = props;
+  const { meta, nameItem } = props;
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -38,7 +38,7 @@ const PaginationLayout = (props: IProps) => {
         pageSize={meta.pageSize}
         onChange={handlePaginationChange}
         showTotal={(total, range) =>
-          `${range[0]}-${range[1]} của ${total} sản phẩm`
+          `${range[0]}-${range[1]} của ${total} ${nameItem || "mục"}`
         }
       />
     </div>

@@ -1,33 +1,30 @@
-import OrderTable from "@/components/admin/orders/order.table";
 import { sendAuthRequest } from "@/utils/api";
 import { IOrder } from "@/types/models/order.model";
-import OrderFilter from "@/components/admin/orders/order.filter";
+import OrderList from "@/components/customer/order/order.list";
+import { cache } from "react";
 
 interface IProps {
   params: { id: string };
   searchParams: { [key: string]: string | string[] | undefined };
 }
 
-const ManageOrderPage = async (props: IProps) => {
+const OrderPage = async (props: IProps) => {
   const current = props?.searchParams?.current ?? 1;
   const pageSize = props?.searchParams?.pageSize ?? 10;
   const sort = "-createdAt";
-
-  // console.log(">>>>>> check searchParams: ", props.searchParams);
-
   const res = await sendAuthRequest<IBackendRes<IModelPaginate<IOrder>>>({
-    url: `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/orders`,
+    url: `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/orders/user`,
     method: "GET",
     queryParams: { current, pageSize, sort, ...props.searchParams },
-    nextOption: {},
+    nextOption: { cache: "no-store" },
   });
 
   return (
-    <>
-      <OrderFilter />
-      <OrderTable orders={res?.data?.results ?? []} meta={res?.data?.meta} />
-    </>
+    <OrderList
+      orders={res?.data?.results}
+      meta={res?.data?.meta}
+    />
   );
 };
 
-export default ManageOrderPage;
+export default OrderPage;

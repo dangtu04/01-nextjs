@@ -65,7 +65,7 @@ const Cart = (props: IProps) => {
           <div className="cart-items">
             <CartItem items={items} onLoadingChange={setIsLoading} />
 
-            <PaginationLayout meta={meta} />
+            <PaginationLayout meta={meta} nameItem="sản phẩm" />
           </div>
           <div className="cart-summary">
             <h2>Tóm tắt đơn hàng</h2>

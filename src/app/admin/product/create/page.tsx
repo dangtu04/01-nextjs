@@ -22,7 +22,7 @@ const CreateProductPage = async () => {
       next: { tags: ["list-brands"] },
     },
   });
-  console.log({ listCategoriesForSelect, listBrandsForSelect });
+  // console.log({ listCategoriesForSelect, listBrandsForSelect });
   return (
     <>
       <div>

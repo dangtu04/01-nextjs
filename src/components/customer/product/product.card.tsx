@@ -1,6 +1,6 @@
 import Link from "next/link";
 import "./product.card.scss";
-
+import { memo } from "react";
 const nullImage = "/null-product.png";
 
 interface IProps {
@@ -11,7 +11,10 @@ interface IProps {
 
 }
 
+
+
 const ProductCard = ({ image, name, price, slug }: IProps) => {
+  // console.log('>>>>> check render')
   return (
     <Link href={`/product/${slug}`} style={{ textDecoration: "none" }}>
       <div className="product-card">
@@ -31,4 +34,5 @@ const ProductCard = ({ image, name, price, slug }: IProps) => {
   );
 };
 
-export default ProductCard;
+// export default ProductCard;
+export default memo(ProductCard);

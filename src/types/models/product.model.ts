@@ -5,7 +5,7 @@ export enum ProductStatus {
 }
 
 export interface IThumbnail {
-  publicId: string;
+  publicId?: string;
   secureUrl: string;
 }
 

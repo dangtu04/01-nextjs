@@ -4,6 +4,7 @@ import { auth } from "@/auth";
 import { IProductCard, IProductVariant } from "@/types/models/product.model";
 import { sendAuthRequest, sendRequest, sendRequestFile } from "@/utils/api";
 import { revalidateTag } from "next/cache";
+import { cache } from "react";
 
 export const handleCreateProductAction = async (formData: FormData) => {
   const session = await auth();
@@ -22,7 +23,7 @@ export const handleCreateProductAction = async (formData: FormData) => {
 
 export const handleUpdateProductAction = async (
   id: string,
-  formData: FormData
+  formData: FormData,
 ) => {
   const session = await auth();
   const res = await sendRequestFile<IBackendRes<any>>({
@@ -40,7 +41,7 @@ export const handleUpdateProductAction = async (
 
 export const handleUpdateProductVariantsAction = async (
   id: any,
-  variants: IProductVariant
+  variants: IProductVariant,
 ) => {
   const res = await sendAuthRequest<IBackendRes<any>>({
     url: `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/products/${id}/variants`,
@@ -64,7 +65,7 @@ export const handleDeleteProductAction = async (id: any) => {
 
 export const handleBulkAddImagesAction = async (
   id: string,
-  formData: FormData
+  formData: FormData,
 ) => {
   const session = await auth();
   const res = await sendRequestFile<IBackendRes<any>>({
@@ -82,7 +83,7 @@ export const handleBulkAddImagesAction = async (
 
 export const handleBulkUpdateImagesAction = async (
   id: string,
-  formData: FormData
+  formData: FormData,
 ) => {
   const session = await auth();
   const res = await sendRequestFile<IBackendRes<any>>({
@@ -100,7 +101,7 @@ export const handleBulkUpdateImagesAction = async (
 
 export const handleGetNewProductsAction = async (
   current: number,
-  pageSize: number
+  pageSize: number,
 ) => {
   const res = await sendRequest<IBackendRes<IModelPaginate<IProductCard>>>({
     url: `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/products/list/new`,
@@ -108,6 +109,30 @@ export const handleGetNewProductsAction = async (
     queryParams: { current, pageSize },
     nextOption: {
       next: { tags: ["list-products"], revalidate: 3600 },
+    },
+  });
+  return res;
+};
+
+interface IGetProductsPublicParams {
+  current: number;
+  pageSize: number;
+  minPrice?: number;
+  maxPrice?: number;
+  categoryId?: string;
+  brandId?: string;
+}
+
+export const handleGetProductsPublicAction = async (
+  params: IGetProductsPublicParams,
+) => {
+  const res = await sendRequest<IBackendRes<IModelPaginate<IProductCard>>>({
+    url: `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/products/public/all`,
+    method: "GET",
+    queryParams: params,
+    nextOption: {
+      next: { tags: ["list-products-public"], revalidate: 0 },
+      // cache: "no-store",
     },
   });
   return res;

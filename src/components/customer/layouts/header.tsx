@@ -15,6 +15,7 @@ import MenuVertical from "./menu.vertical";
 import Link from "next/link";
 import type { MenuProps } from "antd";
 import { signOut } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 interface CustomerHeaderProps {
   totalQty: number;
@@ -22,6 +23,7 @@ interface CustomerHeaderProps {
 }
 
 const CustomerHeader = ({ totalQty, isAuthenticated }: CustomerHeaderProps) => {
+  const router = useRouter();
   const [searchValue, setSearchValue] = useState("");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -31,6 +33,19 @@ const CustomerHeader = ({ totalQty, isAuthenticated }: CustomerHeaderProps) => {
 
   const closeMenu = () => {
     setIsMenuOpen(false);
+  };
+
+  const handleSearch = () => {
+    if (searchValue.trim()) {
+      router.push(`/product/search?keyword=${encodeURIComponent(searchValue)}`);
+      setSearchValue("");
+    }
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      handleSearch();
+    }
   };
 
   const data: any = menuData;
@@ -74,15 +89,20 @@ const CustomerHeader = ({ totalQty, isAuthenticated }: CustomerHeaderProps) => {
               placeholder="Bạn đang tìm gì..."
               value={searchValue}
               onChange={(e) => setSearchValue(e.target.value)}
+              onKeyPress={handleKeyPress}
               className="search-input"
             />
-            <button className="search-button">
+            <button className="search-button" onClick={handleSearch}>
               <SearchOutlined style={{ fontSize: "18px" }} />
             </button>
           </div>
 
           <div className="header-actions">
-            <div className="action-item action-item-search">
+            <div
+              className="action-item action-item-search"
+              onClick={handleSearch}
+              style={{ cursor: "pointer" }}
+            >
               <SearchOutlined style={{ fontSize: "24px" }} />
               <span>Tìm kiếm</span>
             </div>

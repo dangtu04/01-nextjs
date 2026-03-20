@@ -137,3 +137,21 @@ export const handleGetProductsPublicAction = async (
   });
   return res;
 };
+
+export const handleSearchProductsAction = async (params: {
+  keyword?: string;
+  current?: number;
+  pageSize?: number;
+}) => {
+  const res = await sendRequest<IBackendRes<IModelPaginate<IProductCard>>>({
+    url: `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/products/search/keyword`,
+    method: "GET",
+    queryParams: params,
+    nextOption: {
+      cache: "no-store",
+    },
+  });
+
+  // console.log("Search products result:", res);
+  return res;
+};

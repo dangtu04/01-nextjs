@@ -1,0 +1,301 @@
+@import url("https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap");
+
+.search-result {
+  font-family: "Be Vietnam Pro", sans-serif;
+  min-height: 50vh;
+
+  &__header {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+    color: #fff;
+    padding: 40px 100px;
+    border-bottom: 1px solid #333;
+
+    h1 {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      margin: 0 0 12px 0;
+      text-transform: uppercase;
+    }
+
+    p {
+      font-size: 13px;
+      color: #bbb;
+      letter-spacing: 0.04em;
+      margin: 0;
+
+      strong {
+        color: #fff;
+        font-weight: 600;
+      }
+    }
+  }
+
+  &__container {
+    display: flex;
+    justify-content: center;
+    padding: 48px 32px;
+    background: #f9f9f9;
+  }
+
+  &__wrapper {
+    width: 100%;
+    max-width: 1200px;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    margin-bottom: 32px;
+
+    @media (max-width: 1200px) {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    @media (max-width: 768px) {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    @media (max-width: 480px) {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+  }
+
+  &__empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 40px;
+    text-align: center;
+
+    svg {
+      width: 120px;
+      height: 120px;
+      margin-bottom: 24px;
+      opacity: 0.3;
+    }
+
+    h2 {
+      font-size: 20px;
+      font-weight: 600;
+      color: #333;
+      margin: 0 0 8px 0;
+      letter-spacing: 0.02em;
+    }
+
+    p {
+      font-size: 14px;
+      color: #999;
+      margin: 0;
+      max-width: 400px;
+      line-height: 1.6;
+      letter-spacing: 0.03em;
+    }
+  }
+
+  &__load-more {
+    display: flex;
+    justify-content: center;
+    padding: 32px 0;
+
+    .btn-load-more {
+      height: 48px;
+      padding: 0 56px;
+      background: #000;
+      color: #fff;
+      border: 2px solid #000;
+      border-radius: 0;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: "Be Vietnam Pro", sans-serif;
+      position: relative;
+      overflow: hidden;
+
+      &::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        transition:
+          width 0.6s,
+          height 0.6s;
+      }
+
+      &:hover {
+        background: #222;
+        border-color: #222;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+
+        &::before {
+          width: 300px;
+          height: 300px;
+        }
+      }
+
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        box-shadow: none;
+
+        &:hover {
+          background: #000;
+          border-color: #000;
+        }
+      }
+
+      @media (max-width: 600px) {
+        height: 44px;
+        padding: 0 40px;
+        font-size: 11px;
+      }
+    }
+  }
+
+  &__skeleton-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+
+    @media (max-width: 1200px) {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    @media (max-width: 768px) {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    @media (max-width: 480px) {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+  }
+}
+
+// ── ANIMATION ────────────────────────────────────────────
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.search-result__grid {
+  animation: slideInUp 0.4s ease-out;
+}
+
+// ── RESPONSIVE UTILITIES ─────────────────────────────────
+@media (max-width: 1024px) {
+  .search-result {
+    &__header {
+      padding: 32px 24px;
+
+      h1 {
+        font-size: 24px;
+      }
+    }
+
+    &__container {
+      padding: 40px 24px;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .search-result {
+    &__header {
+      padding: 28px 20px;
+
+      h1 {
+        font-size: 20px;
+      }
+
+      p {
+        font-size: 12px;
+      }
+    }
+
+    &__container {
+      padding: 32px 16px;
+    }
+
+    &__empty {
+      padding: 60px 24px;
+
+      h2 {
+        font-size: 18px;
+      }
+
+      p {
+        font-size: 13px;
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .search-result {
+    &__header {
+      padding: 24px 16px;
+
+      h1 {
+        font-size: 18px;
+        letter-spacing: 0.06em;
+      }
+
+      p {
+        font-size: 11px;
+      }
+    }
+
+    &__container {
+      padding: 24px 12px;
+    }
+
+    &__empty {
+      padding: 48px 16px;
+
+      svg {
+        width: 80px;
+        height: 80px;
+      }
+
+      h2 {
+        font-size: 16px;
+      }
+
+      p {
+        font-size: 12px;
+      }
+    }
+
+    &__load-more {
+      padding: 24px 0;
+
+      .btn-load-more {
+        height: 40px;
+        padding: 0 32px;
+        font-size: 10px;
+      }
+    }
+  }
+}

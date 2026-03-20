@@ -96,7 +96,7 @@ const ProductAll = ({
     if (!loading) fetchProducts(currentPage + 1, true);
   };
 
-  console.log(">>>>> check render product all");
+  // console.log(">>>>> check render product all");
   return (
     <div className="product-all">
       <div className="product-all__body">

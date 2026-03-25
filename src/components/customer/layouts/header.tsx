@@ -16,7 +16,9 @@ import Link from "next/link";
 import type { MenuProps } from "antd";
 import { signOut } from "next-auth/react";
 import { redirect, useRouter } from "next/navigation";
-const logoImage = "/logo.png";
+import Image from "next/image";
+
+
 interface CustomerHeaderProps {
   totalQty: number;
   isAuthenticated: boolean;
@@ -49,6 +51,11 @@ const CustomerHeader = ({ totalQty, isAuthenticated }: CustomerHeaderProps) => {
     }
   };
 
+  const handleLogout = async () => {
+    await signOut({ redirect: false });
+    router.push("/login");
+  };
+
   const data: any = menuData;
 
   const accountMenu: MenuProps["items"] = isAuthenticated
@@ -59,7 +66,7 @@ const CustomerHeader = ({ totalQty, isAuthenticated }: CustomerHeaderProps) => {
         },
         {
           key: "logout",
-          label: <span onClick={() => signOut()}>Đăng xuất</span>,
+          label: <span onClick={handleLogout}>Đăng xuất</span>,
         },
       ]
     : [
@@ -78,10 +85,7 @@ const CustomerHeader = ({ totalQty, isAuthenticated }: CustomerHeaderProps) => {
           </div>
 
           <div className="logo" onClick={() => router.push("/")}>
-            <img
-              src={logoImage}
-              alt={process.env.NEXT_PUBLIC_APP_NAME || "Logo"}
-            />
+           <Image src="/logo.png" alt="Logo" width={100} height={50} />
           </div>
 
           <div className="search-bar">

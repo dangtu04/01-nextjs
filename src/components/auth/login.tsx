@@ -1,14 +1,5 @@
 "use client";
-import {
-  Button,
-  Col,
-  Divider,
-  Form,
-  Input,
-  message,
-  notification,
-  Row,
-} from "antd";
+import { Button, Col, Divider, Form, Input, message, notification, Row } from "antd";
 import { ArrowLeftOutlined } from "@ant-design/icons";
 import Link from "next/link";
 import { authenticate } from "@/utils/actions";
@@ -16,9 +7,10 @@ import { useRouter } from "next/navigation";
 import ModalReactivate from "./modal.reactivate";
 import { useState } from "react";
 import ModalChangePassword from "./modal.change.password";
+import "./login.scss";
+
 const Login = () => {
   const router = useRouter();
-
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [userEmail, setUserEmail] = useState("");
   const [changePassword, setChangePassword] = useState(false);
@@ -26,7 +18,6 @@ const Login = () => {
   const onFinish = async (values: any) => {
     const { email, password } = values;
     const res = await authenticate(email, password);
-    // console.log(">>> check res: ", res);
     if (res?.error) {
       if (res?.errCode === 1) {
         notification.error({
@@ -34,10 +25,6 @@ const Login = () => {
           description: res?.error,
         });
       } else if (res?.errCode === 2) {
-        // notification.error({
-        //   message: "Đăng nhập không thành công",
-        //   description: "Tài khoản chưa được kích hoạt!",
-        // });
         setUserEmail(email);
         setIsModalOpen(true);
         return;
@@ -50,77 +37,80 @@ const Login = () => {
 
   return (
     <>
-      {" "}
-      <Row justify={"center"} style={{ marginTop: "30px" }}>
-        <Col xs={24} md={16} lg={8}>
-          <fieldset
-            style={{
-              padding: "15px",
-              margin: "5px",
-              border: "1px solid #ccc",
-              borderRadius: "5px",
-            }}
-          >
-            <legend>Đăng Nhập</legend>
-            <Form
-              name="basic"
-              onFinish={onFinish}
-              autoComplete="off"
-              layout="vertical"
-            >
-              <Form.Item
-                label="Email"
-                name="email"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please input your email!",
-                  },
-                ]}
-              >
-                <Input />
-              </Form.Item>
+      <div className="login-wrapper">
+        <Row justify="center" align="middle" style={{ minHeight: "100vh" }}>
+          <Col xs={22} sm={16} md={12} lg={8} xl={7}>
+            <div className="login-card">
+              <div className="login-header">
+                <span className="login-label">Đăng nhập</span>
+                <h1 className="login-title">Chào mừng trở lại</h1>
+              </div>
 
-              <Form.Item
-                label="Password"
-                name="password"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please input your password!",
-                  },
-                ]}
+              <Form
+                name="login"
+                onFinish={onFinish}
+                autoComplete="off"
+                layout="vertical"
+                className="login-form"
               >
-                <Input.Password />
-              </Form.Item>
-
-              <Form.Item>
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                  }}
+                <Form.Item
+                  label="Email"
+                  name="email"
+                  rules={[{ required: true, message: "Vui lòng nhập email!" }]}
                 >
-                  <Button type="link" onClick={() => setChangePassword(true)}>
+                  <Input placeholder="email@example.com" />
+                </Form.Item>
+
+                <Form.Item
+                  label="Mật khẩu"
+                  name="password"
+                  rules={[{ required: true, message: "Vui lòng nhập mật khẩu!" }]}
+                >
+                  <Input.Password />
+                </Form.Item>
+
+                <div className="login-forgot">
+                  <Button
+                    type="link"
+                    onClick={() => setChangePassword(true)}
+                    className="forgot-btn"
+                  >
                     Quên mật khẩu?
                   </Button>
-                  <Button type="primary" htmlType="submit">
+                </div>
+
+                <Form.Item>
+                  <Button
+                    type="primary"
+                    htmlType="submit"
+                    className="login-submit-btn"
+                    block
+                  >
                     Đăng nhập
                   </Button>
-                </div>
-              </Form.Item>
-            </Form>
-            <Link href={"/"}>
-              <ArrowLeftOutlined /> Quay lại trang chủ
-            </Link>
-            <Divider />
-            <div style={{ textAlign: "center" }}>
-              Chưa có tài khoản? <Link href={"/register"}>Đăng ký tại đây</Link>
+                </Form.Item>
+              </Form>
+
+              <Divider className="login-divider" />
+
+              <div className="login-footer">
+                <span>Chưa có tài khoản?</span>
+                <Link href="/register" className="register-link">
+                  Đăng ký
+                </Link>
+              </div>
+
+              <div className="login-back">
+                <Link href="/" className="back-link">
+                  <ArrowLeftOutlined />
+                  <span>Quay lại trang chủ</span>
+                </Link>
+              </div>
             </div>
-          </fieldset>
-        </Col>
-      </Row>
+          </Col>
+        </Row>
+      </div>
+
       <ModalReactivate
         isModalOpen={isModalOpen}
         setIsModalOpen={setIsModalOpen}

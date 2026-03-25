@@ -9,7 +9,7 @@ import {
 } from "@ant-design/icons";
 import { Button, Form, Input, Modal, notification, Steps } from "antd";
 import { useEffect, useState } from "react";
-
+import "./modal.reactivate.scss";
 type ModalReactivateProps = {
   isModalOpen: boolean;
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -66,99 +66,82 @@ const ModalReactivate = (props: ModalReactivateProps) => {
 
   return (
     <>
-      <Modal
-        title="Activate account"
-        open={isModalOpen}
-        onOk={() => setIsModalOpen(true)}
-        onCancel={() => setIsModalOpen(false)}
-        maskClosable={false}
-        footer={null}
-      >
-        <Steps
-          current={current}
-          items={[
-            {
-              title: "Login",
+     <Modal
+  className="reactivate-modal"
+  title="Activate account"
+  open={isModalOpen}
+  onCancel={() => setIsModalOpen(false)}
+  maskClosable={false}
+  footer={null}
+>
+  <div className="reactivate-container">
+    <Steps
+      current={current}
+      className="reactivate-steps"
+      items={[
+        { title: "Login", icon: <UserOutlined /> },
+        { title: "Verification", icon: <SolutionOutlined /> },
+        { title: "Done", icon: <SmileOutlined /> },
+      ]}
+    />
 
-              icon: <UserOutlined />,
-            },
-            {
-              title: "Verification",
+    {current === 0 && (
+      <div className="reactivate-step">
+        <p className="description">Tài khoản của bạn chưa được kích hoạt</p>
 
-              icon: <SolutionOutlined />,
-            },
+        <Form
+          form={form}
+          onFinish={onFinishStep0}
+          layout="vertical"
+        >
+          <Form.Item label="" name="email">
+            <Input disabled className="input-dark" />
+          </Form.Item>
 
-            {
-              title: "Done",
+          <Form.Item>
+            <Button type="primary" htmlType="submit" className="btn-dark">
+              Resend
+            </Button>
+          </Form.Item>
+        </Form>
+      </div>
+    )}
 
-              icon: <SmileOutlined />,
-            },
-          ]}
-        />
+    {current === 1 && (
+      <div className="reactivate-step">
+        <p className="description">Vui lòng nhập mã xác nhận</p>
 
-        {current === 0 && (
-          <>
-            <div style={{ margin: "20px 0" }}>
-              Tài khoản của bạn chưa được kích hoạt
-            </div>
-            <Form
-              form={form}
-              onFinish={onFinishStep0}
-              autoComplete="off"
-              layout="vertical"
-            >
-              <Form.Item label="" name="email" initialValue={email}>
-                <Input disabled />
-              </Form.Item>
+        <Form
+          form={form}
+          onFinish={onFinishStep1}
+          layout="vertical"
+        >
+          <Form.Item
+            label="Code"
+            name="code"
+            rules={[{ required: true, message: "Please input your code!" }]}
+          >
+            <Input className="input-dark" />
+          </Form.Item>
 
-              <Form.Item>
-                <Button type="primary" htmlType="submit">
-                  Resend
-                </Button>
-              </Form.Item>
-            </Form>
-          </>
-        )}
+          <Form.Item>
+            <Button type="primary" htmlType="submit" className="btn-dark">
+              Activate
+            </Button>
+          </Form.Item>
+        </Form>
+      </div>
+    )}
 
-        {current === 1 && (
-          <>
-            <div style={{ margin: "20px 0" }}>Vui lòng nhập mã xác nhận</div>
-            <Form
-              form={form}
-              onFinish={onFinishStep1}
-              autoComplete="off"
-              layout="vertical"
-            >
-              <Form.Item
-                label="Code"
-                name="code"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please input your code!",
-                  },
-                ]}
-              >
-                <Input />
-              </Form.Item>
-
-              <Form.Item>
-                <Button type="primary" htmlType="submit">
-                  Activate
-                </Button>
-              </Form.Item>
-            </Form>
-          </>
-        )}
-
-        {current === 2 && (
-          <>
-            <div style={{ margin: "20px 0" }}>
-              Tài khoản đã được kích hoạt thành công, vui lòng đăng nhập lại
-            </div>
-          </>
-        )}
-      </Modal>
+    {current === 2 && (
+      <div className="reactivate-step">
+        <p className="description success">
+          Tài khoản đã được kích hoạt thành công, vui lòng đăng nhập lại
+        </p>
+      </div>
+    )}
+  </div>
+</Modal>
     </>
   );
 };

@@ -6,10 +6,11 @@ export default auth((req) => {
   const { pathname } = req.nextUrl;
   const session = req.auth;
 
-  const publicRoutes = ["/", "/login", "/register"];
+  const publicRoutes = ["/", "/login", "/register", "/not-found", "/product", "/product/search"];
 
   const isProductDetailRoute = pathname.startsWith("/product/");
-  const isPublicRoute = publicRoutes.includes(pathname) || isProductDetailRoute;
+  const isVerifyRoute = pathname.startsWith("/verify/"); 
+  const isPublicRoute = publicRoutes.includes(pathname) || isProductDetailRoute || isVerifyRoute;
   const isAdminRoute = pathname.startsWith("/admin");
 
   // phải login là admin
@@ -28,7 +29,7 @@ export default auth((req) => {
 
   // không phải admin, không phải public
   if (!isPublicRoute && !session) {
-    return NextResponse.redirect(new URL("/not-found", req.url));
+    return NextResponse.redirect(new URL("/", req.url));
   }
 
   // đã login mà vào trang login/register, redirect về /

@@ -1,0 +1,83 @@
+.reactivate-modal {
+  .ant-modal-content {
+    background: #fff;
+    border: 1px solid #000;
+    border-radius: 6px;
+    padding: 24px;
+  }
+
+  .ant-modal-header {
+    background: #fff;
+    border-bottom: 1px solid #000;
+  }
+
+  .ant-modal-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #000;
+  }
+
+  .reactivate-container {
+    margin-top: 10px;
+  }
+
+  /* Steps */
+  .reactivate-steps {
+    .ant-steps-item-title {
+      color: #000 !important;
+      font-weight: 500;
+    }
+
+    .ant-steps-item-icon {
+      background: #000 !important;
+      border-color: #000 !important;
+
+      .ant-steps-icon {
+        color: #fff !important;
+      }
+    }
+  }
+
+  /* Description text */
+  .description {
+    margin: 16px 0 20px;
+    color: #000;
+    font-size: 15px;
+
+    &.success {
+      font-weight: 600;
+    }
+  }
+
+  /* Inputs */
+  .input-dark {
+    border: 1px solid #000 !important;
+    border-radius: 4px !important;
+    height: 38px;
+
+    &:disabled {
+      background: #f7f7f7 !important;
+      color: #333 !important;
+    }
+
+    &:focus,
+    &:hover {
+      border-color: #000 !important;
+      box-shadow: none !important;
+    }
+  }
+
+  /* Buttons */
+  .btn-dark {
+    background: #000 !important;
+    border: 1px solid #000 !important;
+    height: 40px;
+    padding: 0 18px;
+    border-radius: 4px !important;
+    letter-spacing: 0.3px;
+
+    &:hover {
+      opacity: 0.85;
+    }
+  }
+}

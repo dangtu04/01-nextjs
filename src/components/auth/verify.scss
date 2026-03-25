@@ -1,0 +1,183 @@
+// ─── Verify Page ──────────────────────────────────────────────────────────────
+
+.verify-wrapper {
+  background-color: #f5f5f5;
+  min-height: 100vh;
+}
+
+.verify-card {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  padding: 48px 40px 36px;
+
+  @media (max-width: 480px) {
+    padding: 36px 24px 28px;
+  }
+}
+
+// ─── Header ───────────────────────────────────────────────────────────────────
+
+.verify-header {
+  margin-bottom: 28px;
+
+  .verify-label {
+    display: block;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #999;
+    margin-bottom: 8px;
+  }
+
+  .verify-title {
+    font-size: 26px;
+    font-weight: 700;
+    color: #000;
+    margin: 0;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
+}
+
+// ─── Notice Block ─────────────────────────────────────────────────────────────
+
+.verify-notice {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: #f7f7f7;
+  border: 1px solid #ebebeb;
+  border-radius: 3px;
+  padding: 14px 16px;
+  margin-bottom: 28px;
+
+  .verify-notice-icon {
+    font-size: 16px;
+    color: #000;
+    margin-top: 2px;
+    flex-shrink: 0;
+  }
+
+  .verify-notice-text {
+    font-size: 13px;
+    color: #555;
+    line-height: 1.6;
+    margin: 0;
+  }
+}
+
+// ─── Form ─────────────────────────────────────────────────────────────────────
+
+.verify-form {
+  .ant-form-item-label > label {
+    font-size: 13px;
+    font-weight: 500;
+    color: #222;
+    letter-spacing: 0.01em;
+  }
+
+  .ant-input {
+    border-radius: 3px;
+    border-color: #d0d0d0;
+    height: 42px;
+    font-size: 14px;
+    color: #000;
+    background: #fafafa;
+    transition: border-color 0.2s, background 0.2s;
+
+    &:hover {
+      border-color: #000;
+    }
+
+    &:focus {
+      border-color: #000;
+      background: #fff;
+      box-shadow: none;
+    }
+  }
+}
+
+// ─── Submit Button ────────────────────────────────────────────────────────────
+
+.verify-submit-btn.ant-btn-primary {
+  height: 44px;
+  background-color: #000 !important;
+  border-color: #000 !important;
+  border-radius: 3px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  transition: opacity 0.2s !important;
+
+  &:hover,
+  &:focus {
+    background-color: #000 !important;
+    border-color: #000 !important;
+    opacity: 0.7;
+  }
+
+  &:active {
+    background-color: #000 !important;
+    border-color: #000 !important;
+    opacity: 1;
+  }
+}
+
+// ─── Divider ──────────────────────────────────────────────────────────────────
+
+.verify-divider.ant-divider {
+  border-color: #ebebeb;
+  margin: 24px 0 20px;
+}
+
+// ─── Footer ───────────────────────────────────────────────────────────────────
+
+.verify-footer {
+  text-align: center;
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 20px;
+
+  span {
+    margin-right: 6px;
+  }
+}
+
+.login-link {
+  color: #000;
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 1px solid #000;
+  padding-bottom: 1px;
+  transition: opacity 0.2s;
+
+  &:hover {
+    opacity: 0.6;
+  }
+}
+
+// ─── Back Link ────────────────────────────────────────────────────────────────
+
+.verify-back {
+  text-align: center;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #999;
+  text-decoration: none;
+  transition: color 0.2s;
+
+  &:hover {
+    color: #000;
+  }
+
+  .anticon {
+    font-size: 11px;
+  }
+}

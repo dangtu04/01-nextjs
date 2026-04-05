@@ -42,7 +42,7 @@ const ProductAll = ({
     if (categoryId) {
       setCategory(categoryId);
     }
-    fetchProducts(1, false, { category: categoryId });
+    fetchProducts(1, false, { category: categoryId ?? undefined });
   }, [searchParams]);
 
   // dùng useMemo để không tạo lại options nếu list categories không đổi

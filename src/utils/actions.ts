@@ -9,8 +9,13 @@ export async function authenticate(email: string, password: string) {
       // callbackUrl: "/",
       redirect: false,
     });
+
+    // console.log("Login response:", res);
     return res;
+
+    
   } catch (error: any) {
+    // console.log("Login error:", error.type);
 
     if (error.name === "InvalidEmailPasswordError") {
       return {

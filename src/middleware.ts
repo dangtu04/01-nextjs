@@ -42,7 +42,6 @@ export default auth((req) => {
 
 export const config = {
   matcher: [
-    // bảo vệ tất cả routes trừ static files
-    "/((?!api|_next/static|_next/image|favicon.ico).*)",
+    "/((?!api|_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico|ttf|woff|woff2)).*)",
   ],
 };

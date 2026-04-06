@@ -60,6 +60,11 @@ const Login = () => {
         setUserEmail(email);
         setIsModalOpen(true);
         return;
+      } else if (res?.errCode === 3) {
+        notification.error({
+          message: "Lỗi máy chủ",
+          description: "Vui lòng thử lại sau.",
+        });
       }
     } else {
       message.success("Đăng nhập thành công!");
